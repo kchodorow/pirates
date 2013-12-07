@@ -32,47 +32,28 @@ pirates.start = function(){
     var scene = new lime.Scene();
 
     var ocean = new pirates.Ocean();
-    scene.appendChild(ocean);
     controller.addActor(ocean);
 
-    var player = new pirates.Ship();
-    player.setPosition(WIDTH/2, 700);
-    scene.appendChild(player);
+    scene.appendChild(ocean);
 
     var target = new goog.math.Coordinate(lib.random(1024), 0);
     var island = new pirates.Island();
     island.setPosition(target);
     ocean.appendChild(island);
 
+    var pause = lib.label('Pause').setPosition(50, 50);
+    scene.appendChild(pause);
+    this.paused = false;
+    goog.events.listen(pause, ['mousedown','touchstart'], function(e) {
+	this.paused = !this.paused;
+	if (this.paused) {
+	    lime.scheduleManager.unschedule(controller.step, controller);
+	} else {
+	    lime.scheduleManager.schedule(controller.step, controller);
+	}
+    });
+
     director.makeMobileWebAppCapable();
-
-    //add some interaction
-    // goog.events.listen(target,['mousedown','touchstart'],function(e){
-
-    //                        //animate
-    //                        target.runAction(new lime.animation.Spawn(
-    //                                             new lime.animation.FadeTo(.5).setDuration(.2),
-    //                                             new lime.animation.ScaleTo(1.5).setDuration(.8)
-    //                                         ));
-
-    //                        title.runAction(new lime.animation.FadeTo(1));
-
-    //                        //let target follow the mouse/finger
-    //                        e.startDrag();
-
-    //                        //listen for end event
-    //                        e.swallow(['mouseup','touchend'],function(){
-    //                                      target.runAction(new lime.animation.Spawn(
-    //                                                           new lime.animation.FadeTo(1),
-    //                                                           new lime.animation.ScaleTo(1),
-    //                                                           new lime.animation.MoveTo(512,384)
-    //                                                       ));
-
-    //                                      title.runAction(new lime.animation.FadeTo(0));
-    //                                  });
-
-
-    //                    });
 
     // set current scene active
     director.replaceScene(scene);

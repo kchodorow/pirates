@@ -4,7 +4,12 @@ pirates.data.Resources = function() {
 
 };
 
+pirates.data.Resources.prototype.HEADING = {
+    LEFT : -1, RIGHT: 1, STRAIGHT: 0
+};
+
 pirates.data.Resources.prototype.BOAT_SPEED = {
+    STOPPED: 0,
     SLOW: 30,
     MEDIUM: 60,
     PIRATE: 75,
