@@ -5,6 +5,8 @@ goog.require('lime.ASSETS.pirates.json');
 goog.require('lime.SpriteSheet');
 
 FONT_COLOR = '#fff';
+FONT_SIZE = 72;
+FONT_FAMILY = 'Tangerine';
 
 pirates.data.Resources = function() {
     this.spriteSheet_ = new lime.SpriteSheet(
@@ -25,8 +27,7 @@ pirates.data.Resources.prototype.BOAT_SPEED = {
     STOPPED: 0,
     SLOW: 10,
     PIRATE: 15,
-    MEDIUM: 20,
-    FAST: 30
+    FAST: 1000,
 };
 
 pirates.data.Resources.prototype.getOcean = function() {
@@ -43,6 +44,11 @@ pirates.data.Resources.prototype.getIsland = function() {
 
 pirates.data.Resources.prototype.getMine = function() {
     return this.spriteSheet_.getFrame('mine.png');
+};
+
+pirates.data.Resources.prototype.getBox = function() {
+    return '#fff';
+//    return this.spriteSheet_.getFrame('box.png');
 };
 
 pirates.data.Resources.prototype.getPirateShip = function() {
