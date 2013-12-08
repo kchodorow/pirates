@@ -102,7 +102,7 @@ pirates.Controller.prototype.addMines = function() {
 
 pirates.Controller.prototype.addCargo = function(cargo) {
     this.cargo_ = cargo;
-    this.cargo_.setPosition(WIDTH-100, 50);
+    this.cargo_.setPosition(WIDTH-50, 50);
     this.scene_.appendChild(this.cargo_);
 }
 
@@ -138,7 +138,7 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	    }
             goog.style.setStyle(
 		this.mines_[i].domElement, 'visibility', 'visible');
-	    this.mines_[i].setRotation(-this.rotation);
+	    this.mines_[i].setRotation(-this.rotation_);
 	}
     }
 
@@ -156,7 +156,7 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	    }
             goog.style.setStyle(
 		this.box_[i].domElement, 'visibility', 'visible');
-	    this.box_[i].setRotation(-this.rotation);
+	    this.box_[i].setRotation(-this.rotation_);
 	}
     }
 

@@ -4,7 +4,8 @@ pirates.Cargo = function() {
     lime.Sprite.call(this);
 
     this.quantity_ = 100;
-    this.label_ = lib.label(this.quantity_);
+    this.label_ = lib.label(this.quantity_).setPosition(-70, 0);
+    this.setFill(pirates.resources.getIceCream());
     this.appendChild(this.label_);
 };
 goog.inherits(pirates.Cargo, lime.Sprite);
