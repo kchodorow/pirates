@@ -10,8 +10,11 @@ pirates.Ship = function() {
     this.warning_.opacity_ = .2;
     this.appendChild(this.warning_);
 
-    var ship = new lime.Sprite().setFill(pirates.resources.getShip());
-    this.appendChild(ship);
+    this.ship_ = new lime.Sprite().setFill(pirates.resources.getShip());
+    this.appendChild(this.ship_);
+
+    this.marker_ = new lime.Sprite().setFill('#fff').setSize(20,20);
+    this.appendChild(this.marker_);
 };
 goog.inherits(pirates.Ship, lime.Sprite);
 
@@ -20,6 +23,19 @@ pirates.Ship.prototype.getMinDistance = function() {
     return this.warning_.getSize().width/2;
 };
 
+pirates.Ship.prototype.setTarget = function(target) {
+    this.target_ = target;
+};
+
+pirates.Ship.prototype.step = function(dt, rot) {
+    var diff = goog.math.Coordinate.difference(
+	this.target_.getPosition(), this.getPosition());
+    var vec = new goog.math.Vec2(diff.x, diff.y);
+    vec.normalize().scale(pirates.Ship.MARKER_DIST);
+    this.marker_.setPosition(vec.x, vec.y);
+};
+
 pirates.Ship.size = 20;
 pirates.Ship.SAFE_SIZE = 250;
+pirates.Ship.MARKER_DIST = 200;
 

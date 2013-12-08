@@ -32,18 +32,6 @@ pirates.Ocean.prototype.setSpeed = function(speed) {
     this.speed_ = speed;
 };
 
-pirates.Ocean.prototype.addMines = function() {
-    this.mines_ = [];
-    for (var i = 0; i < pirates.Mine.NUM; i++) {
-	var mine = new pirates.Mine()
-	    .setPosition(lib.random(pirates.Ocean.SIZE), lib.random(pirates.Ocean.SIZE));
-	this.appendChild(mine);
-	this.mines_.push(mine);
-	mine.createDomElement();
-        goog.style.setStyle(mine.domElement, 'visibility', 'hidden');
-    }
-};
-
 pirates.Ocean.prototype.updatePosition = function(dist) {
     var rot = this.getRotation();
     var pos = this.getPosition();
@@ -59,7 +47,7 @@ pirates.Ocean.prototype.updatePosition = function(dist) {
     }
 
     this.target_.setRotation(-rot);
-    this.ship_.setRotation(-rot);
+    this.ship_.ship_.setRotation(-rot);
 };
 
 pirates.Ocean.prototype.updateAnchorPoint = function() {
@@ -69,11 +57,16 @@ pirates.Ocean.prototype.updateAnchorPoint = function() {
 
 pirates.Ocean.prototype.addTarget = function(island) {
     this.target_ = island;
+    this.ship_.setTarget(island)
     this.appendChild(island);
 };
 
 pirates.Ocean.prototype.addShip = function(ship) {
     this.appendChild(ship);
+};
+
+pirates.Ocean.prototype.addMine = function(mine) {
+    this.appendChild(mine);
 };
 
 pirates.Ocean.prototype.step = function(dt, rot) {
@@ -82,23 +75,6 @@ pirates.Ocean.prototype.step = function(dt, rot) {
 
     // Update position.
     this.updatePosition(dt * this.speed_);
-
-    // Check for mines
-    for (var i = 0; i < this.mines_.length; i++) {
-	var dist = goog.math.Coordinate.distance(
-	    this.mines_[i].getPosition(), this.ship_.getPosition());
-	if (dist < this.ship_.getMinDistance()) {
-	    if (goog.math.Coordinate.distance(
-		this.mines_[i].getPosition(), this.ship_.getPosition()) < 15) {
-		pirates.endOfGame();
-		return;
-	    }
-            goog.style.setStyle(
-		this.mines_[i].domElement, 'visibility', 'visible');
-	    this.mines_[i].setRotation(-rot);
-	}
-
-    }
 
     if (goog.math.Coordinate.distance(
 	this.target_.getPosition(), this.ship_.getPosition()) < 44) {

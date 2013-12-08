@@ -4,10 +4,14 @@ goog.require('lime.parser.JSON');
 goog.require('lime.ASSETS.pirates.json');
 goog.require('lime.SpriteSheet');
 
+FONT_COLOR = '#fff';
+
 pirates.data.Resources = function() {
     this.spriteSheet_ = new lime.SpriteSheet(
         'assets/pirates.png', lime.ASSETS.pirates.json, lime.parser.JSON);
 };
+
+pirates.data.Resources.prototype.HIT_MINE = -5;
 
 pirates.data.Resources.prototype.HEADING = {
     LEFT : -1, RIGHT: 1, STRAIGHT: 0

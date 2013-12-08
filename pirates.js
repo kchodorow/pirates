@@ -15,6 +15,7 @@ goog.require('pirates.Controller');
 goog.require('pirates.Island');
 goog.require('pirates.Ocean');
 goog.require('pirates.Ship');
+goog.require('pirates.Cargo');
 
 var WIDTH = 1024;
 var HEIGHT = 768;
@@ -37,7 +38,9 @@ pirates.start = function(){
     var island = new pirates.Island();
     island.setPosition(target);
     ocean.addTarget(island);
-    ocean.addMines();
+
+    var cargo = new pirates.Cargo();
+    controller.addCargo(cargo);
 
     director.makeMobileWebAppCapable();
 

@@ -73,8 +73,29 @@ pirates.Controller.prototype.togglePaused = function() {
 pirates.Controller.prototype.addOcean = function(ocean) {
     this.ocean_ = ocean;
     this.ship_ = this.ocean_.ship_;
-    this.addActor(ocean);
+    this.addActor(this.ocean_);
+    this.addActor(this.ship_);
+
+    this.addMines();
 };
+
+pirates.Controller.prototype.addMines = function() {
+    this.mines_ = [];
+    for (var i = 0; i < pirates.Mine.NUM; i++) {
+	var mine = new pirates.Mine()
+	    .setPosition(lib.random(pirates.Ocean.SIZE), lib.random(pirates.Ocean.SIZE));
+	this.ocean_.addMine(mine);
+	this.mines_.push(mine);
+	mine.createDomElement();
+        goog.style.setStyle(mine.domElement, 'visibility', 'hidden');
+    }
+};
+
+pirates.Controller.prototype.addCargo = function(cargo) {
+    this.cargo_ = cargo;
+    this.cargo_.setPosition(WIDTH-100, 50);
+    this.scene_.appendChild(this.cargo_);
+}
 
 pirates.Controller.prototype.addActor = function(actor) {
     if (goog.DEBUG && !('step' in actor)) {
@@ -92,6 +113,21 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	var ship = new pirates.PirateShip(this.ship_);
 	this.ocean_.addShip(ship)
 	this.actors_.push(ship);
+    }
+
+    // Check for mines
+    for (var i = 0; i < this.mines_.length; i++) {
+	var dist = goog.math.Coordinate.distance(
+	    this.mines_[i].getPosition(), this.ship_.getPosition());
+	if (dist < this.ship_.getMinDistance()) {
+	    if (goog.math.Coordinate.distance(
+		this.mines_[i].getPosition(), this.ship_.getPosition()) < 15) {
+		this.cargo_.changeQuantity(pirates.resources.HIT_MINE);
+	    }
+            goog.style.setStyle(
+		this.mines_[i].domElement, 'visibility', 'visible');
+	    this.mines_[i].setRotation(-this.rotation);
+	}
     }
 
     var len = this.actors_.length;
