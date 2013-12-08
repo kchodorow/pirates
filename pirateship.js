@@ -17,7 +17,8 @@ pirates.PirateShip = function(target) {
 };
 goog.inherits(pirates.PirateShip, lime.Sprite);
 
-pirates.PirateShip.prototype.step = function(dt) {
+pirates.PirateShip.prototype.step = function(dt, rot) {
+    this.setRotation(-rot);
     var dist = pirates.resources.BOAT_SPEED.PIRATE*dt;
     var diff = goog.math.Coordinate.difference(
 	this.target_.getPosition(), this.getPosition());
