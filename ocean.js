@@ -40,6 +40,8 @@ pirates.Ocean.prototype.addMines = function() {
 	    .setPosition(lib.random(pirates.Ocean.SIZE), lib.random(pirates.Ocean.SIZE));
 	this.appendChild(mine);
 	this.mines_.push(mine);
+	mine.createDomElement();
+        goog.style.setStyle(mine.domElement, 'visibility', 'hidden');
     }
 };
 
@@ -95,16 +97,12 @@ pirates.Ocean.prototype.step = function(dt_ms) {
     this.updatePosition(dt * this.speed_);
 
     // Check for mines
-    var alerted = false;
     for (var i = 0; i < this.mines_.length; i++) {
 	var dist = goog.math.Coordinate.distance(
 	    this.mines_[i].getPosition(), this.ship_.getPosition());
 	if (dist < this.ship_.getMinDistance()) {
-	    this.ship_.alert();
-	    alerted = true;
+            goog.style.setStyle(
+		this.mines_[i].domElement, 'visibility', 'visible');
 	}
-    }
-    if (!alerted) {
-	this.ship_.standDown();
     }
 };

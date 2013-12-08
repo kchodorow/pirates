@@ -8,6 +8,8 @@ pirates.Ship = function() {
     this.warning_ = new lime.Circle().setFill('#0f0')
 		     .setSize(pirates.Ship.SAFE_SIZE, pirates.Ship.SAFE_SIZE);
     this.appendChild(this.warning_);
+    this.warning_.createDomElement();
+    goog.style.setStyle(this.warning_.domElement, 'opacity', .4);
 
     var ship = new lime.Sprite().setFill(pirates.resources.getShip())
 	.setSize(pirates.Ship.size, pirates.Ship.size);
@@ -18,10 +20,6 @@ goog.inherits(pirates.Ship, lime.Sprite);
 pirates.Ship.prototype.getMinDistance = function() {
     // Radius
     return this.warning_.getSize().width/2;
-};
-
-pirates.Ship.prototype.alert = function() {
-    this.warning_.setFill('#f00');
 };
 
 pirates.Ship.prototype.standDown = function() {
