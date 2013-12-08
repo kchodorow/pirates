@@ -1,0 +1,44 @@
+{"frames": {
+
+"island.png":
+{
+	"frame": {"x":2,"y":194,"w":141,"h":88},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":141,"h":88},
+	"sourceSize": {"w":141,"h":88}
+},
+"mine.png":
+{
+	"frame": {"x":145,"y":269,"w":44,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
+},
+"ship.png":
+{
+	"frame": {"x":145,"y":194,"w":73,"h":88},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":73,"h":88},
+	"sourceSize": {"w":73,"h":88}
+},
+"water.png":
+{
+	"frame": {"x":2,"y":2,"w":250,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":190},
+	"sourceSize": {"w":250,"h":190}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "pirates.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e80c8c7cf85367c4700d2218930f047b:878fe863ebca8215d8ae49b07b042bf1:b9422178b2a194bfb6868ff6f7537bd2$"
+}
+}

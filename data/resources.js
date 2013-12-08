@@ -1,6 +1,12 @@
 goog.provide('pirates.data.Resources');
 
+goog.require('lime.parser.JSON');
+goog.require('lime.ASSETS.pirates.json');
+goog.require('lime.SpriteSheet');
+
 pirates.data.Resources = function() {
+    this.spriteSheet_ = new lime.SpriteSheet(
+        'assets/pirates.png', lime.ASSETS.pirates.json, lime.parser.JSON);
 };
 
 pirates.data.Resources.prototype.HEADING = {
@@ -17,21 +23,26 @@ pirates.data.Resources.prototype.BOAT_SPEED = {
 };
 
 pirates.data.Resources.prototype.getOcean = function() {
-    return '#00f';
+    return this.spriteSheet_.getFrame('water.png');
 };
 
 pirates.data.Resources.prototype.getShip = function() {
-    return '#bb2';
+    return this.spriteSheet_.getFrame('ship.png');
 };
 
 pirates.data.Resources.prototype.getIsland = function() {
-    return '#0f0';
+    return this.spriteSheet_.getFrame('island.png');
 };
 
 pirates.data.Resources.prototype.getMine = function() {
-    return '#f00';
+    return this.spriteSheet_.getFrame('mine.png');
 };
 
+pirates.data.Resources.prototype.getPirateShip = function() {
+    return this.spriteSheet_.getFrame('ship.png');
+};
+
+//smoop
 pirates.data.Resources.prototype.changeSpeed = function(speed, dir) {
     var change = dir * this.BOAT_SPEED.DIFF;
     var new_speed = speed+change;

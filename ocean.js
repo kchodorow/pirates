@@ -54,6 +54,10 @@ pirates.Ocean.prototype.updatePosition = function(dist) {
     this.ship_.setPosition(this.ship_.getPosition().translate(dist_x, -dist_y));
 
     this.updateAnchorPoint();
+
+    if (this.tile_.domElement) {
+	goog.style.setStyle(this.tile_.domElement, 'background-size', '250px');
+    }
 };
 
 pirates.Ocean.prototype.updateAnchorPoint = function() {
@@ -74,12 +78,10 @@ pirates.Ocean.prototype.keydown = function(e) {
     case goog.events.KeyCodes.UP:
     case goog.events.KeyCodes.W:
 	this.speed_ = pirates.resources.changeSpeed(this.speed_, 1);
-	console.log(this.speed_);
 	break;
     case goog.events.KeyCodes.DOWN:
     case goog.events.KeyCodes.S:
 	this.speed_ = pirates.resources.changeSpeed(this.speed_, -1);
-	console.log(this.speed_);
 	break;
     case goog.events.KeyCodes.E:
 	pirates.endOfGame();
@@ -94,6 +96,10 @@ pirates.Ocean.prototype.keyup = function(e) {
 pirates.Ocean.prototype.addTarget = function(island) {
     this.target_ = island;
     this.appendChild(island);
+};
+
+pirates.Ocean.prototype.addShip = function(ship) {
+
 };
 
 pirates.Ocean.prototype.step = function(dt_ms) {

@@ -33,7 +33,7 @@ pirates.start = function(){
     var scene = new lime.Scene();
 
     var ocean = new pirates.Ocean();
-    controller.addActor(ocean);
+    controller.addOcean(ocean);
 
     scene.appendChild(ocean);
 
