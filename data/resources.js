@@ -13,6 +13,8 @@ pirates.data.Resources.prototype.HEADING = {
     LEFT : -1, RIGHT: 1, STRAIGHT: 0
 };
 
+pirates.data.Resources.prototype.ROT_SPEED = 30;
+
 pirates.data.Resources.prototype.BOAT_SPEED = {
     DIFF: 10,
     STOPPED: 0,
