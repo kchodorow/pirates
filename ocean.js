@@ -101,7 +101,7 @@ pirates.Ocean.prototype.addTarget = function(island) {
 };
 
 pirates.Ocean.prototype.addShip = function(ship) {
-
+    this.appendChild(ship);
 };
 
 pirates.Ocean.prototype.step = function(dt) {

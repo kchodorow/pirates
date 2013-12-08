@@ -21,5 +21,5 @@ pirates.Ship.prototype.getMinDistance = function() {
 };
 
 pirates.Ship.size = 20;
-pirates.Ship.SAFE_SIZE = 176;
+pirates.Ship.SAFE_SIZE = 250;
 

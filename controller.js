@@ -39,6 +39,7 @@ pirates.Controller.prototype.addPauseButton = function() {
 
 pirates.Controller.prototype.addOcean = function(ocean) {
     this.ocean_ = ocean;
+    this.ship_ = this.ocean_.ship_;
     this.addActor(ocean);
 };
 
@@ -54,7 +55,7 @@ pirates.Controller.prototype.step = function(dt_ms) {
     var dt = dt_ms/1000;
 
     if (lib.random(pirates.Controller.PIRATE_CHANCE) == 0) {
-	var ship = new pirates.PirateShip();
+	var ship = new pirates.PirateShip(this.ship_);
 	this.ocean_.addShip(ship)
 	this.actors_.push(ship);
     }
