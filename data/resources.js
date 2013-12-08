@@ -4,7 +4,7 @@ goog.require('lime.parser.JSON');
 goog.require('lime.ASSETS.pirates.json');
 goog.require('lime.SpriteSheet');
 
-FONT_COLOR = '#fff';
+FONT_COLOR = 'rgb(212,195,148)';
 FONT_SIZE = 72;
 FONT_FAMILY = 'Tangerine';
 
@@ -46,13 +46,20 @@ pirates.data.Resources.prototype.getMine = function() {
     return this.spriteSheet_.getFrame('mine.png');
 };
 
+pirates.data.Resources.prototype.getExplosion = function() {
+    return this.spriteSheet_.getFrame('explosion.png');
+};
+
 pirates.data.Resources.prototype.getBox = function() {
-    return '#fff';
-//    return this.spriteSheet_.getFrame('box.png');
+    return this.spriteSheet_.getFrame('box.png');
 };
 
 pirates.data.Resources.prototype.getPirateShip = function() {
-    return this.spriteSheet_.getFrame('ship.png');
+    return this.spriteSheet_.getFrame('pirateship.png');
+};
+
+pirates.data.Resources.prototype.getIceCream = function() {
+    return this.spriteSheet_.getFrame('icecream.png');
 };
 
 //smoop
