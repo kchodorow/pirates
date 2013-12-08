@@ -1,7 +1,6 @@
 goog.provide('pirates.data.Resources');
 
 pirates.data.Resources = function() {
-
 };
 
 pirates.data.Resources.prototype.HEADING = {
@@ -28,3 +27,6 @@ pirates.data.Resources.prototype.getIsland = function() {
     return '#0f0';
 };
 
+pirates.data.Resources.prototype.getMine = function() {
+    return '#f00';
+};

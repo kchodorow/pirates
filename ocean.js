@@ -1,8 +1,9 @@
 goog.provide('pirates.Ocean');
 
 goog.require('goog.events.KeyCodes');
-
 goog.require('lime.Layer');
+
+goog.require('pirates.Mine');
 
 pirates.Ocean = function() {
     lime.Layer.call(this);
@@ -31,6 +32,16 @@ goog.inherits(pirates.Ocean, lime.Layer);
 
 // TODO: move to Level class.
 pirates.Ocean.SIZE = 2048;
+
+pirates.Ocean.prototype.addMines = function() {
+    this.mines_ = [];
+    for (var i = 0; i < pirates.Mine.NUM; i++) {
+	var mine = new pirates.Mine()
+	    .setPosition(lib.random(pirates.Ocean.SIZE), lib.random(pirates.Ocean.SIZE));
+	this.appendChild(mine);
+	this.mines_.push(mine);
+    }
+};
 
 pirates.Ocean.prototype.updatePosition = function(dist) {
     var rot = this.getRotation();
@@ -82,4 +93,18 @@ pirates.Ocean.prototype.step = function(dt_ms) {
 
     // Update position.
     this.updatePosition(dt * this.speed_);
+
+    // Check for mines
+    var alerted = false;
+    for (var i = 0; i < this.mines_.length; i++) {
+	var dist = goog.math.Coordinate.distance(
+	    this.mines_[i].getPosition(), this.ship_.getPosition());
+	if (dist < this.ship_.getMinDistance()) {
+	    this.ship_.alert();
+	    alerted = true;
+	}
+    }
+    if (!alerted) {
+	this.ship_.standDown();
+    }
 };

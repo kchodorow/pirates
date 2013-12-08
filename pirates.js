@@ -40,6 +40,7 @@ pirates.start = function(){
     var island = new pirates.Island();
     island.setPosition(target);
     ocean.appendChild(island);
+    ocean.addMines();
 
     var pause = lib.label('Pause').setPosition(50, 50);
     scene.appendChild(pause);
