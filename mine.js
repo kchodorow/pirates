@@ -3,8 +3,7 @@ goog.provide('pirates.Mine');
 pirates.Mine = function() {
     lime.Sprite.call(this);
 
-    this.setFill(pirates.resources.getMine())
-	.setSize(pirates.Mine.size, pirates.Mine.size);
+    this.setFill(pirates.resources.getMine());
 };
 
 goog.inherits(pirates.Mine, lime.Sprite);
