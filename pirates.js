@@ -25,16 +25,15 @@ pirates.start = function(){
     pirates.tutorial = new pirates.data.Tutorial();
     pirates.stats = new pirates.data.Stats();
 
-    var director = new lime.Director(document.body,1024,768);
+    var director = new lime.Director(document.body, WIDTH, HEIGHT);
     var scene = new lime.Scene();
     var controller = new pirates.Controller(scene);
 
     var ocean = new pirates.Ocean();
     controller.addOcean(ocean);
-
     scene.appendChild(ocean);
 
-    var target = new goog.math.Coordinate(lib.random(1024), 0);
+    var target = new goog.math.Coordinate(lib.random(1024), 100);
     var island = new pirates.Island();
     island.setPosition(target);
     ocean.addTarget(island);

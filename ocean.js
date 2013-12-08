@@ -7,7 +7,8 @@ goog.require('pirates.Mine');
 
 pirates.Ocean = function() {
     lime.Layer.call(this);
-    this.setSize(pirates.Ocean.SIZE, pirates.Ocean.SIZE);
+    this.ship_ = new pirates.Ship();
+    this.setSize(pirates.Ocean.SIZE, pirates.Ocean.SIZE).setPosition(-500, -1200);
 
     this.tile_ = new lime.Sprite()
 	.setFill(pirates.resources.getOcean())
@@ -18,7 +19,7 @@ pirates.Ocean = function() {
     this.speed_ = pirates.resources.BOAT_SPEED.SLOW;
     this.heading_ = pirates.resources.HEADING.STRAIGHT;
 
-    this.ship_ = new pirates.Ship().setPosition(WIDTH/2, HEIGHT/2);
+    this.ship_ = new pirates.Ship().setPosition(500+WIDTH/2, 1200+HEIGHT/2);
     this.appendChild(this.ship_);
     this.updateAnchorPoint();
 
