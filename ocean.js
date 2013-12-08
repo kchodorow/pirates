@@ -20,7 +20,7 @@ pirates.Ocean = function() {
 
     var anchor = this.getAnchorPoint();
 
-    this.ship_ = new pirates.Ship().setPosition(WIDTH/2, 700);
+    this.ship_ = new pirates.Ship().setPosition(WIDTH/2, HEIGHT/2);
     this.appendChild(this.ship_);
     this.updateAnchorPoint();
 
