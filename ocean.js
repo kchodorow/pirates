@@ -17,20 +17,20 @@ pirates.Ocean = function() {
     this.appendChild(this.tile_);
 
     this.speed_ = pirates.resources.BOAT_SPEED.SLOW;
-    this.heading_ = pirates.resources.HEADING.STRAIGHT;
 
     this.ship_ = new pirates.Ship().setPosition(500+WIDTH/2, 1200+HEIGHT/2);
     this.appendChild(this.ship_);
     this.updateAnchorPoint();
-
-    goog.events.listen(this, ['keydown'], this.keydown);
-    goog.events.listen(this, ['keyup'], this.keyup);
 };
 
 goog.inherits(pirates.Ocean, lime.Layer);
 
 // TODO: move to Level class.
 pirates.Ocean.SIZE = 2048;
+
+pirates.Ocean.prototype.setSpeed = function(speed) {
+    this.speed_ = speed;
+};
 
 pirates.Ocean.prototype.addMines = function() {
     this.mines_ = [];
@@ -67,34 +67,6 @@ pirates.Ocean.prototype.updateAnchorPoint = function() {
 			this.ship_.position_.y/pirates.Ocean.SIZE);
 }
 
-pirates.Ocean.prototype.keydown = function(e) {
-    switch (e.event.keyCode) {
-    case goog.events.KeyCodes.LEFT:
-    case goog.events.KeyCodes.A:
-	this.heading_ = pirates.resources.HEADING.LEFT;
-	break;
-    case goog.events.KeyCodes.RIGHT:
-    case goog.events.KeyCodes.D:
-	this.heading_ = pirates.resources.HEADING.RIGHT;
-	break;
-    case goog.events.KeyCodes.UP:
-    case goog.events.KeyCodes.W:
-	this.speed_ = pirates.resources.changeSpeed(this.speed_, 1);
-	break;
-    case goog.events.KeyCodes.DOWN:
-    case goog.events.KeyCodes.S:
-	this.speed_ = pirates.resources.changeSpeed(this.speed_, -1);
-	break;
-    case goog.events.KeyCodes.E:
-	pirates.endOfGame();
-    }
-}
-
-pirates.Ocean.prototype.keyup = function(e) {
-    // TODO: add switch for multiple key pressses
-    this.heading_ = 0;
-};
-
 pirates.Ocean.prototype.addTarget = function(island) {
     this.target_ = island;
     this.appendChild(island);
@@ -104,10 +76,8 @@ pirates.Ocean.prototype.addShip = function(ship) {
     this.appendChild(ship);
 };
 
-pirates.Ocean.prototype.step = function(dt) {
+pirates.Ocean.prototype.step = function(dt, rot) {
     // Update heading.
-    var rot = this.getRotation();
-    rot = rot+dt*this.heading_*pirates.resources.ROT_SPEED;
     this.setRotation(rot);
 
     // Update position.
