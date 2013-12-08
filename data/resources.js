@@ -12,6 +12,7 @@ pirates.data.Resources = function() {
 };
 
 pirates.data.Resources.prototype.HIT_MINE = -5;
+pirates.data.Resources.prototype.HIT_BOX = 5;
 
 pirates.data.Resources.prototype.HEADING = {
     LEFT : -1, RIGHT: 1, STRAIGHT: 0

@@ -41,6 +41,7 @@ pirates.start = function(){
 
     var cargo = new pirates.Cargo();
     controller.addCargo(cargo);
+    controller.addPauseButton();
 
     director.makeMobileWebAppCapable();
 

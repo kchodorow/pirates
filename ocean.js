@@ -61,12 +61,8 @@ pirates.Ocean.prototype.addTarget = function(island) {
     this.appendChild(island);
 };
 
-pirates.Ocean.prototype.addShip = function(ship) {
-    this.appendChild(ship);
-};
-
-pirates.Ocean.prototype.addMine = function(mine) {
-    this.appendChild(mine);
+pirates.Ocean.prototype.add = function(thing) {
+    this.appendChild(thing);
 };
 
 pirates.Ocean.prototype.step = function(dt, rot) {

@@ -14,7 +14,6 @@ pirates.Controller = function(scene) {
     lime.scheduleManager.schedule(this.step, this);
     goog.events.listen(this.scene_, ['keydown'], goog.bind(this.keydown, this));
     goog.events.listen(this.scene_, ['keyup'], goog.bind(this.keyup, this));
-    this.addPauseButton();
 };
 
 pirates.Controller.PIRATE_CHANCE = 1000;
@@ -54,7 +53,7 @@ pirates.Controller.prototype.keyup = function(e) {
 };
 
 pirates.Controller.prototype.addPauseButton = function() {
-    var pause = lib.label('Pause').setPosition(50, 50);
+    var pause = lib.label('Pause').setPosition(100, 50);
     this.scene_.appendChild(pause);
     this.paused_ = false;
     goog.events.listen(
@@ -84,10 +83,20 @@ pirates.Controller.prototype.addMines = function() {
     for (var i = 0; i < pirates.Mine.NUM; i++) {
 	var mine = new pirates.Mine()
 	    .setPosition(lib.random(pirates.Ocean.SIZE), lib.random(pirates.Ocean.SIZE));
-	this.ocean_.addMine(mine);
+	this.ocean_.add(mine);
 	this.mines_.push(mine);
 	mine.createDomElement();
         goog.style.setStyle(mine.domElement, 'visibility', 'hidden');
+    }
+
+    this.box_ = [];
+    for (var i = 0; i < pirates.Box.NUM; i++) {
+	var box = new pirates.Box()
+	    .setPosition(lib.random(pirates.Ocean.SIZE), lib.random(pirates.Ocean.SIZE));
+	this.ocean_.add(box);
+	this.box_.push(box);
+	box.createDomElement();
+        goog.style.setStyle(box.domElement, 'visibility', 'hidden');
     }
 };
 
@@ -111,7 +120,7 @@ pirates.Controller.prototype.step = function(dt_ms) {
 
     if (lib.random(pirates.Controller.PIRATE_CHANCE) == 0) {
 	var ship = new pirates.PirateShip(this.ship_);
-	this.ocean_.addShip(ship)
+	this.ocean_.add(ship)
 	this.actors_.push(ship);
     }
 
@@ -130,6 +139,24 @@ pirates.Controller.prototype.step = function(dt_ms) {
             goog.style.setStyle(
 		this.mines_[i].domElement, 'visibility', 'visible');
 	    this.mines_[i].setRotation(-this.rotation);
+	}
+    }
+
+    // Check for boxes
+    for (var i = 0; i < this.box_.length; i++) {
+	var dist = goog.math.Coordinate.distance(
+	    this.box_[i].getPosition(), this.ship_.getPosition());
+	if (dist < this.ship_.getMinDistance()*2) {
+	    if (goog.math.Coordinate.distance(
+		this.box_[i].getPosition(), this.ship_.getPosition()) < 15) {
+		this.cargo_.changeQuantity(pirates.resources.HIT_BOX);
+		this.box_[i].collect();
+		goog.array.removeAt(this.box_, i);
+		break;
+	    }
+            goog.style.setStyle(
+		this.box_[i].domElement, 'visibility', 'visible');
+	    this.box_[i].setRotation(-this.rotation);
 	}
     }
 
