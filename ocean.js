@@ -58,6 +58,9 @@ pirates.Ocean.prototype.updatePosition = function(dist) {
     if (this.tile_.domElement) {
 	goog.style.setStyle(this.tile_.domElement, 'background-size', '250px');
     }
+
+    this.target_.setRotation(-rot);
+    this.ship_.setRotation(-rot);
 };
 
 pirates.Ocean.prototype.updateAnchorPoint = function() {
@@ -123,6 +126,7 @@ pirates.Ocean.prototype.step = function(dt) {
 	    }
             goog.style.setStyle(
 		this.mines_[i].domElement, 'visibility', 'visible');
+	    this.mines_[i].setRotation(-rot);
 	}
 
     }
