@@ -53,7 +53,9 @@ pirates.Controller.prototype.keyup = function(e) {
 };
 
 pirates.Controller.prototype.addPauseButton = function() {
-    var pause = lib.label('Pause').setPosition(100, 50);
+    var pause = new lime.Sprite().setFill(pirates.resources.getPause())
+	.setPosition(100, 50).setSize(180, 100);
+    pause.appendChild(lib.label('Pause'));
     this.scene_.appendChild(pause);
     this.paused_ = false;
     goog.events.listen(

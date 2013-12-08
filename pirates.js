@@ -5,6 +5,8 @@ goog.provide('pirates');
 goog.require('lime.Director');
 goog.require('lime.Scene');
 goog.require('lime.transitions.SlideInDown');
+goog.require('lime.animation.FadeTo');
+goog.require('lime.scheduleManager');
 
 goog.require('lib');
 goog.require('pirates.data.Resources');
@@ -43,11 +45,21 @@ pirates.start = function(){
     controller.addCargo(cargo);
     controller.addPauseButton();
 
+    var mission = pirates.tutorial.mission().setPosition(WIDTH/2, 200);
+    scene.appendChild(mission);
+    lime.scheduleManager.scheduleWithDelay(removeMission, mission, 5000);
+
+    scene.appendChild(pirates.tutorial.directions().setPosition(WIDTH-100, HEIGHT-100));
+
     director.makeMobileWebAppCapable();
 
     // set current scene active
     director.replaceScene(scene);
     pirates.director = director;
+};
+
+var removeMission = function() {
+    this.runAction(new lime.animation.FadeTo(0));
 };
 
 pirates.endOfGame = function() {

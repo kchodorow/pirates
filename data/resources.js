@@ -30,6 +30,10 @@ pirates.data.Resources.prototype.BOAT_SPEED = {
     FAST: 1000,
 };
 
+pirates.data.Resources.prototype.getPause = function() {
+    return this.spriteSheet_.getFrame('pause.png');
+};
+
 pirates.data.Resources.prototype.getOcean = function() {
     return this.spriteSheet_.getFrame('water.png');
 };
@@ -60,6 +64,10 @@ pirates.data.Resources.prototype.getPirateShip = function() {
 
 pirates.data.Resources.prototype.getIceCream = function() {
     return this.spriteSheet_.getFrame('icecream.png');
+};
+
+pirates.data.Resources.prototype.getArrow = function() {
+    return this.spriteSheet_.getFrame('arrow.png');
 };
 
 //smoop
