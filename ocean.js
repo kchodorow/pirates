@@ -102,9 +102,7 @@ pirates.Ocean.prototype.addShip = function(ship) {
 
 };
 
-pirates.Ocean.prototype.step = function(dt_ms) {
-    var dt = dt_ms/1000;
-
+pirates.Ocean.prototype.step = function(dt) {
     // Update heading.
     var rot = this.getRotation();
     rot = rot+dt*this.heading_*10;

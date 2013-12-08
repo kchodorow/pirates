@@ -21,7 +21,9 @@ pirates.Controller.prototype.addActor = function(actor) {
 };
 
 // dt in milliseconds
-pirates.Controller.prototype.step = function(dt) {
+pirates.Controller.prototype.step = function(dt_ms) {
+    var dt = dt_ms/1000;
+
     if (lib.random(pirates.Controller.PIRATE_CHANCE) == 0) {
 	var ship = new pirates.PirateShip();
 	this.ocean_.addShip(ship)
