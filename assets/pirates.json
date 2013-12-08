@@ -2,16 +2,16 @@
 
 "arrow.png":
 {
-	"frame": {"x":92,"y":330,"w":29,"h":86},
+	"frame": {"x":132,"y":398,"w":78,"h":82},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":29,"h":86},
-	"sourceSize": {"w":31,"h":88}
+	"spriteSourceSize": {"x":2,"y":2,"w":78,"h":82},
+	"sourceSize": {"w":86,"h":88}
 },
 "box.png":
 {
-	"frame": {"x":2,"y":363,"w":88,"h":59},
-	"rotated": false,
+	"frame": {"x":2,"y":398,"w":88,"h":59},
+	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":59},
 	"sourceSize": {"w":88,"h":59}
@@ -26,7 +26,7 @@
 },
 "icecream.png":
 {
-	"frame": {"x":2,"y":424,"w":67,"h":86},
+	"frame": {"x":63,"y":363,"w":67,"h":86},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":86},
@@ -87,6 +87,6 @@
 	"format": "RGBA8888",
 	"size": {"w":256,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e360114cbd2a889fdf29205d0ad049aa:884a62ee808d4fdf9e8975f2447c1ef4:b9422178b2a194bfb6868ff6f7537bd2$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c148aaf1fb70b98627a97c5d3fda33aa:14d91ba363c8df0c58310fd57352c299:b9422178b2a194bfb6868ff6f7537bd2$"
 }
 }
