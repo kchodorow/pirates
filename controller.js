@@ -1,12 +1,41 @@
 goog.provide('pirates.Controller');
 
+goog.require('lime.scheduleManager');
+
 goog.require('pirates.PirateShip');
 
-pirates.Controller = function() {
+pirates.Controller = function(scene) {
+    this.scene_ = scene;
     this.actors_ = [];
+
+    // Won't start until start() is done.
+    lime.scheduleManager.schedule(this.step, this);
+    this.addPauseButton();
 };
 
 pirates.Controller.PIRATE_CHANCE = 1000;
+
+pirates.Controller.prototype.addPauseButton = function() {
+    var controller = this;
+    var pause = lib.label('Pause').setPosition(50, 50);
+    this.scene_.appendChild(pause);
+    this.paused_ = false;
+    var toggle_pause = function(e) {
+	this.paused_ = !this.paused_;
+	if (this.paused_) {
+	    lime.scheduleManager.unschedule(controller.step, controller);
+	} else {
+	    lime.scheduleManager.schedule(controller.step, controller);
+	}
+    };
+
+    goog.events.listen(pause, ['keydown'], function(e) {
+	if (e.event.keyCode == goog.events.KeyCodes.SPACE) {
+	    toggle_pause();
+	}
+    });
+    goog.events.listen(pause, ['mousedown','touchstart'], toggle_pause);
+};
 
 pirates.Controller.prototype.addOcean = function(ocean) {
     this.ocean_ = ocean;

@@ -18,8 +18,6 @@ pirates.Ocean = function() {
     this.speed_ = pirates.resources.BOAT_SPEED.SLOW;
     this.heading_ = pirates.resources.HEADING.STRAIGHT;
 
-    var anchor = this.getAnchorPoint();
-
     this.ship_ = new pirates.Ship().setPosition(WIDTH/2, HEIGHT/2);
     this.appendChild(this.ship_);
     this.updateAnchorPoint();
