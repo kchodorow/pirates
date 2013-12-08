@@ -73,11 +73,13 @@ pirates.Ocean.prototype.keydown = function(e) {
 	break;
     case goog.events.KeyCodes.UP:
     case goog.events.KeyCodes.W:
-	// TODO
+	this.speed_ = pirates.resources.changeSpeed(this.speed_, 1);
+	console.log(this.speed_);
 	break;
     case goog.events.KeyCodes.DOWN:
     case goog.events.KeyCodes.S:
-	// TODO
+	this.speed_ = pirates.resources.changeSpeed(this.speed_, -1);
+	console.log(this.speed_);
 	break;
     case goog.events.KeyCodes.E:
 	pirates.endOfGame();
@@ -111,7 +113,7 @@ pirates.Ocean.prototype.step = function(dt_ms) {
 	    this.mines_[i].getPosition(), this.ship_.getPosition());
 	if (dist < this.ship_.getMinDistance()) {
 	    if (goog.math.Coordinate.distance(
-		this.mines_[i].getPosition(), this.ship_.getPosition()) < 44) {
+		this.mines_[i].getPosition(), this.ship_.getPosition()) < 15) {
 		pirates.endOfGame();
 		return;
 	    }
