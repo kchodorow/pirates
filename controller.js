@@ -123,6 +123,9 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	    if (goog.math.Coordinate.distance(
 		this.mines_[i].getPosition(), this.ship_.getPosition()) < 15) {
 		this.cargo_.changeQuantity(pirates.resources.HIT_MINE);
+		this.mines_[i].blowup();
+		goog.array.removeAt(this.mines_, i);
+		break;
 	    }
             goog.style.setStyle(
 		this.mines_[i].domElement, 'visibility', 'visible');
