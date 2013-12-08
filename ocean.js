@@ -74,15 +74,24 @@ pirates.Ocean.prototype.keydown = function(e) {
     case goog.events.KeyCodes.UP:
     case goog.events.KeyCodes.W:
 	// TODO
+	break;
     case goog.events.KeyCodes.DOWN:
     case goog.events.KeyCodes.S:
 	// TODO
+	break;
+    case goog.events.KeyCodes.E:
+	pirates.endOfGame();
     }
 }
 
 pirates.Ocean.prototype.keyup = function(e) {
     // TODO: add switch for multiple key pressses
     this.heading_ = 0;
+};
+
+pirates.Ocean.prototype.addTarget = function(island) {
+    this.target_ = island;
+    this.appendChild(island);
 };
 
 pirates.Ocean.prototype.step = function(dt_ms) {
@@ -101,8 +110,19 @@ pirates.Ocean.prototype.step = function(dt_ms) {
 	var dist = goog.math.Coordinate.distance(
 	    this.mines_[i].getPosition(), this.ship_.getPosition());
 	if (dist < this.ship_.getMinDistance()) {
+	    if (goog.math.Coordinate.distance(
+		this.mines_[i].getPosition(), this.ship_.getPosition()) < 44) {
+		pirates.endOfGame();
+		return;
+	    }
             goog.style.setStyle(
 		this.mines_[i].domElement, 'visibility', 'visible');
 	}
+
+    }
+
+    if (goog.math.Coordinate.distance(
+	this.target_.getPosition(), this.ship_.getPosition()) < 44) {
+	pirates.endOfGame();
     }
 };

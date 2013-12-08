@@ -5,6 +5,7 @@ goog.provide('pirates');
 goog.require('lime.Director');
 goog.require('lime.Scene');
 goog.require('lime.scheduleManager');
+goog.require('lime.transitions.SlideInDown');
 
 goog.require('lib');
 goog.require('pirates.data.Resources');
@@ -39,7 +40,7 @@ pirates.start = function(){
     var target = new goog.math.Coordinate(lib.random(1024), 0);
     var island = new pirates.Island();
     island.setPosition(target);
-    ocean.appendChild(island);
+    ocean.addTarget(island);
     ocean.addMines();
 
     var pause = lib.label('Pause').setPosition(50, 50);
@@ -58,7 +59,17 @@ pirates.start = function(){
 
     // set current scene active
     director.replaceScene(scene);
+    pirates.director = director;
+};
 
+pirates.endOfGame = function() {
+    var scene = new lime.Scene().setSize(WIDTH, HEIGHT);
+    var game_over = lib.label("Game Over");
+    pos = lib.center(game_over, scene);
+    game_over.setPosition(pos);
+
+    scene.appendChild(game_over);
+    pirates.director.replaceScene(scene, lime.transitions.SlideInDown);
 };
 
 //this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
