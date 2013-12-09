@@ -4,7 +4,13 @@ pirates.data.Tutorial = function() {
 };
 
 pirates.data.Tutorial.prototype.mission = function() {
-    return lib.label('Mission: deliver your ice cream to the island.');
+    return lib.label('Mission: deliver your ice cream to the island.')
+	.setPosition(WIDTH/2, 200);
+};
+
+pirates.data.Tutorial.prototype.pirates = function() {
+    return lib.label('Jimmy Roger off the port bow!')
+	.setPosition(WIDTH/2, 200);
 };
 
 pirates.data.Tutorial.prototype.directions = function() {

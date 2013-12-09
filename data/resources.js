@@ -26,7 +26,7 @@ pirates.data.Resources.prototype.BOAT_SPEED = {
     DIFF: 10,
     STOPPED: 0,
     SLOW: 10,
-    PIRATE: 15,
+    PIRATE: 30,
     FAST: 1000,
 };
 

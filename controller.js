@@ -10,13 +10,15 @@ pirates.Controller = function(scene) {
     this.rotation_ = 0;
     this.heading_ = pirates.resources.HEADING.STRAIGHT;
 
+    this.first_pirate_ = true;
+
     // Won't start until start() is done.
     lime.scheduleManager.schedule(this.step, this);
     goog.events.listen(this.scene_, ['keydown'], goog.bind(this.keydown, this));
     goog.events.listen(this.scene_, ['keyup'], goog.bind(this.keyup, this));
 };
 
-pirates.Controller.PIRATE_CHANCE = 1000;
+pirates.Controller.PIRATE_CHANCE = 500;
 
 pirates.Controller.prototype.keydown = function(e) {
     switch (e.event.keyCode) {
@@ -118,6 +120,12 @@ pirates.Controller.prototype.step = function(dt_ms) {
     this.rotation_ = this.rotation_+(dt*this.heading_*pirates.resources.ROT_SPEED);
 
     if (lib.random(pirates.Controller.PIRATE_CHANCE) == 0) {
+	if (this.first_pirate_) {
+	    this.first_pirate_ = false;
+	    var msg = pirates.tutorial.pirates();
+	    this.scene_.appendChild(msg);
+	    msg.runAction(new lime.animation.FadeTo(0));
+	}
 	var ship = new pirates.PirateShip(this.ship_);
 	this.ocean_.add(ship)
 	this.actors_.push(ship);
@@ -130,7 +138,8 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	if (dist < this.ship_.getMinDistance()) {
 	    if (goog.math.Coordinate.distance(
 		this.mines_[i].getPosition(), this.ship_.getPosition()) < 15) {
-		var label = lib.label(pirates.resources.HIT_MINE);
+		var label = lib.label(pirates.resources.HIT_MINE)
+		    .setRotation(-this.rotation_);
 		this.ship_.appendChild(label);
 		label.runAction(new lime.animation.Spawn(
 		    new lime.animation.MoveBy(0, -88),
@@ -150,10 +159,11 @@ pirates.Controller.prototype.step = function(dt_ms) {
     for (var i = 0; i < this.box_.length; i++) {
 	var dist = goog.math.Coordinate.distance(
 	    this.box_[i].getPosition(), this.ship_.getPosition());
-	if (dist < this.ship_.getMinDistance()*2) {
+	if (dist < this.ship_.getMinDistance()) {
 	    if (goog.math.Coordinate.distance(
-		this.box_[i].getPosition(), this.ship_.getPosition()) < 15) {
-		var label = lib.label("+"+pirates.resources.HIT_BOX);
+		this.box_[i].getPosition(), this.ship_.getPosition()) < 44) {
+		var label = lib.label("+"+pirates.resources.HIT_BOX)
+		    .setRotation(-this.rotation_);
 		this.ship_.appendChild(label);
 		label.runAction(new lime.animation.Spawn(
 		    new lime.animation.MoveBy(0, -88),
@@ -175,7 +185,7 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	if (done) {
 	    var game_over = 
 		lib.label("You made it with "+this.cargo_.quantity_+" ice creams left!");
-	    game_over.setPosition(WIDTH/2, HEIGHT/2);
+	    game_over.setPosition(WIDTH/2, 200);
 	    this.scene_.appendChild(game_over);
 	    this.togglePaused();
 	}
