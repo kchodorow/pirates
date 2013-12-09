@@ -62,15 +62,5 @@ var removeMission = function() {
     this.runAction(new lime.animation.FadeTo(0));
 };
 
-pirates.endOfGame = function() {
-    var scene = new lime.Scene().setSize(WIDTH, HEIGHT);
-    var game_over = lib.label("Game Over");
-    pos = lib.center(game_over, scene);
-    game_over.setPosition(pos);
-
-    scene.appendChild(game_over);
-    pirates.director.replaceScene(scene, lime.transitions.SlideInDown);
-};
-
 //this is required for outside access after code is compiled in ADVANCED_COMPILATIONS mode
 goog.exportSymbol('pirates.start', pirates.start);

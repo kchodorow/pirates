@@ -41,9 +41,6 @@ pirates.Controller.prototype.keydown = function(e) {
     case goog.events.KeyCodes.SPACE:
 	this.togglePaused();
 	break;
-    case goog.events.KeyCodes.E:
-	pirates.endOfGame();
-	break;
     }
 }
 
@@ -133,6 +130,11 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	if (dist < this.ship_.getMinDistance()) {
 	    if (goog.math.Coordinate.distance(
 		this.mines_[i].getPosition(), this.ship_.getPosition()) < 15) {
+		var label = lib.label(pirates.resources.HIT_MINE);
+		this.ship_.appendChild(label);
+		label.runAction(new lime.animation.Spawn(
+		    new lime.animation.MoveBy(0, -88),
+		    new lime.animation.FadeTo(0)));
 		this.cargo_.changeQuantity(pirates.resources.HIT_MINE);
 		this.mines_[i].blowup();
 		goog.array.removeAt(this.mines_, i);
@@ -151,6 +153,11 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	if (dist < this.ship_.getMinDistance()*2) {
 	    if (goog.math.Coordinate.distance(
 		this.box_[i].getPosition(), this.ship_.getPosition()) < 15) {
+		var label = lib.label("+"+pirates.resources.HIT_BOX);
+		this.ship_.appendChild(label);
+		label.runAction(new lime.animation.Spawn(
+		    new lime.animation.MoveBy(0, -88),
+		    new lime.animation.FadeTo(0)));
 		this.cargo_.changeQuantity(pirates.resources.HIT_BOX);
 		this.box_[i].collect();
 		goog.array.removeAt(this.box_, i);
@@ -164,6 +171,13 @@ pirates.Controller.prototype.step = function(dt_ms) {
 
     var len = this.actors_.length;
     for (var i = 0; i < len; ++i) {
-	this.actors_[i].step(dt, this.rotation_);
+	var done = this.actors_[i].step(dt, this.rotation_);
+	if (done) {
+	    var game_over = 
+		lib.label("You made it with "+this.cargo_.quantity_+" ice creams left!");
+	    game_over.setPosition(WIDTH/2, HEIGHT/2);
+	    this.scene_.appendChild(game_over);
+	    this.togglePaused();
+	}
     }
 };
