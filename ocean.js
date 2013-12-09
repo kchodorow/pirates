@@ -42,10 +42,6 @@ pirates.Ocean.prototype.updatePosition = function(dist) {
 
     this.updateAnchorPoint();
 
-    if (this.tile_.domElement) {
-	goog.style.setStyle(this.tile_.domElement, 'background-size', '250px');
-    }
-
     this.target_.setRotation(-rot);
     this.ship_.ship_.setRotation(-rot);
 };
@@ -74,6 +70,10 @@ pirates.Ocean.prototype.step = function(dt, rot) {
 
     if (goog.math.Coordinate.distance(
 	this.target_.getPosition(), this.ship_.getPosition()) < 44) {
-	pirates.endOfGame();
+	return true;
+    }
+
+    if (this.tile_.domElement) {
+	goog.style.setStyle(this.tile_.domElement, 'background-size', '250px');
     }
 };

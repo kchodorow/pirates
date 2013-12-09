@@ -43,6 +43,7 @@ pirates.start = function(){
 
     var cargo = new pirates.Cargo();
     controller.addCargo(cargo);
+    pirates.cargo = cargo;
     controller.addPauseButton();
 
     var mission = pirates.tutorial.mission().setPosition(WIDTH/2, 200);

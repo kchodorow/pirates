@@ -1,8 +1,13 @@
 goog.provide('pirates.PirateShip');
 
+goog.require('lime.animation.Spawn');
+goog.require('lime.animation.MoveBy');
+goog.require('lime.animation.FadeTo');
+
 pirates.PirateShip = function(target) {
     lime.Sprite.call(this);
 
+    this.active_ = true;
     this.setFill(pirates.resources.getPirateShip());
     this.target_ = target;
 
@@ -18,8 +23,26 @@ pirates.PirateShip = function(target) {
 goog.inherits(pirates.PirateShip, lime.Sprite);
 
 pirates.PirateShip.prototype.step = function(dt, rot) {
+    if (!this.active_) {
+	return;
+    }
+
     this.setRotation(-rot);
     var dist = pirates.resources.BOAT_SPEED.PIRATE*dt;
+    
+    var total_dist = goog.math.Coordinate.distance(
+	this.target_.getPosition(), this.getPosition())
+    if (total_dist < this.target_.getMinDistance()) {
+	this.active_ = false;
+	this.runAction(new lime.animation.FadeTo(0));
+	pirates.cargo.changeQuantity(-25);
+	var label = lib.label("-25");
+	this.target_.appendChild(label);
+	label.runAction(new lime.animation.Spawn(
+	    new lime.animation.MoveBy(0, -88),
+	    new lime.animation.FadeTo(0)));
+    }
+
     var diff = goog.math.Coordinate.difference(
 	this.target_.getPosition(), this.getPosition());
 

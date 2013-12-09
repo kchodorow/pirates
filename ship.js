@@ -13,8 +13,13 @@ pirates.Ship = function() {
     this.ship_ = new lime.Sprite().setFill(pirates.resources.getShip());
     this.appendChild(this.ship_);
 
-    this.marker_ = new lime.Sprite().setFill('#fff').setSize(20,20);
+    this.marker_ = new lime.Sprite().setFill(pirates.resources.getIsland())
+	.setSize(20, 20);
     this.appendChild(this.marker_);
+    this.done_ = false;
+
+    this.createDomElement();
+    goog.style.setStyle(this.domElement, 'z-index', 2);
 };
 goog.inherits(pirates.Ship, lime.Sprite);
 
@@ -28,6 +33,14 @@ pirates.Ship.prototype.setTarget = function(target) {
 };
 
 pirates.Ship.prototype.step = function(dt, rot) {
+    if (this.done_ || goog.math.Coordinate.distance(
+	this.target_.getPosition(), this.getPosition()) < 200) {
+	this.removeChild(this.marker_);
+	this.marker_ = null;
+	this.done_ = true;
+	return;
+    }
+
     var diff = goog.math.Coordinate.difference(
 	this.target_.getPosition(), this.getPosition());
     var vec = new goog.math.Vec2(diff.x, diff.y);
