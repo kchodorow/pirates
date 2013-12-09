@@ -10,7 +10,7 @@ pirates.data.Tutorial.prototype.mission = function() {
 
 pirates.data.Tutorial.prototype.pirates = function() {
     return lib.label('Jimmy Roger off the port bow!')
-	.setPosition(WIDTH/2, 200);
+	.setPosition(WIDTH/2, 600);
 };
 
 pirates.data.Tutorial.prototype.directions = function() {
@@ -20,8 +20,8 @@ pirates.data.Tutorial.prototype.directions = function() {
     var node = new lime.Node();
     var up = lib.label('Slower').setPosition(0, 50);
     var down = lib.label('Faster') .setPosition(0, -50);
-    var left = lib.label('Left').setPosition(50, 0);
-    var right = lib.label('Right').setPosition(-50, 0);
+    var left = lib.label('Right').setPosition(50, 0);
+    var right = lib.label('Left').setPosition(-50, 0);
 
     node.appendChild(new lime.Sprite().setFill(pirates.resources.getArrow()).setPosition(10,0));
     node.appendChild(up);

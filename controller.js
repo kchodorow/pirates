@@ -124,7 +124,7 @@ pirates.Controller.prototype.step = function(dt_ms) {
 	    this.first_pirate_ = false;
 	    var msg = pirates.tutorial.pirates();
 	    this.scene_.appendChild(msg);
-	    msg.runAction(new lime.animation.FadeTo(0));
+	    msg.runAction(new lime.animation.FadeTo(0).setDuration(5));
 	}
 	var ship = new pirates.PirateShip(this.ship_);
 	this.ocean_.add(ship)
