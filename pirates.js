@@ -46,7 +46,7 @@ pirates.start = function(){
     pirates.cargo = cargo;
     controller.addPauseButton();
 
-    var mission = pirates.tutorial.mission().setPosition(WIDTH/2, 200);
+    var mission = pirates.tutorial.mission();
     scene.appendChild(mission);
     lime.scheduleManager.scheduleWithDelay(removeMission, mission, 5000);
 
